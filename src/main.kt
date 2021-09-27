@@ -3,7 +3,8 @@ import kotlin.math.sqrt
 
 fun main(){
     // Initialize variable
-    var userInput = 1
+    var userSelection = 1
+    var area = 1.2
 
     do {
         // Print menu options
@@ -15,59 +16,62 @@ fun main(){
 
         // Get user input
         println("Please select the number of the shape you want to calculate the area for:")
-        userInput = readLine()!!.toInt()
-    }while (userInput !in 1..5)
+        userSelection = readLine()!!.toInt()
 
-    // Call function to get the area
-    val area = getShapeArea(userInput)
+        when (userSelection){
+            1 -> {
+                println("Square selected")
+                println("Enter the length of a side")
+                val side = readLine()!!.toDouble()
 
-    if (area != null) {
+                area = square(side)
+            }
+
+            2 -> {
+                println("Circle selected")
+                println("Enter the radius")
+                val radius = readLine()!!.toDouble()
+
+                area = circle(radius)
+            }
+
+            3 -> {
+                println("Triangle selected")
+                println("Enter the height")
+                val height = readLine()!!.toDouble()
+                println("Enter the length of the base")
+                val base = readLine()!!.toDouble()
+
+                area = triangle(height, base)
+            }
+
+            4 -> {
+                println("Hexagon selected")
+                println("Enter the length of a side")
+                val side = readLine()!!.toDouble()
+
+                area = hexagon(side)
+            }
+        }
+    }while (userSelection !in 1..5)
+
+    if (userSelection != 5) {
         println("The area is: $area")
     }
 }
 
-fun getShapeArea(x: Int): Double? {
-    when (x){
-        // Square
-        1 -> {
-            println("Square selected")
-            println("Enter the length of a side")
-            val side = readLine()!!.toDouble()
-
-            return side * side
-        }
-
-        // Circle
-        2 -> {
-            println("Circle selected")
-            println("Enter the radius")
-            val radius = readLine()!!.toDouble()
-
-            return (PI * radius * radius)
-        }
-
-        // Triangle
-        3 -> {
-            println("Triangle selected")
-            println("Enter the height")
-            val height = readLine()!!.toDouble()
-            println("Enter the length of the base")
-            val base = readLine()!!.toDouble()
-
-            return (.5*base*height)
-        }
-
-        // Hexagon
-        4 -> {
-            println("Hexagon selected")
-            println("Enter the length of a side")
-            val side = readLine()!!.toDouble()
-
-            return (((3*sqrt(3.0))/2)*(side*side))
-        }
-    }
-
-// Null if exit is selected
-    return null
+fun square(side: Double): Double{
+    return side * side
 }
 
+fun circle(radius: Double): Double{
+    return (PI * radius * radius)
+}
+
+fun triangle(height: Double, base: Double): Double{
+    return (.5*base*height)
+}
+
+fun hexagon(side: Double): Double{
+    return (((3*sqrt(3.0))/2)*(side*side))
+}
